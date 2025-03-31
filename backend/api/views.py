@@ -12,3 +12,12 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     serializer_class = api_serializer.RegisterSerializer
+    
+    
+class PasswordResetEmailVerifyAPIView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = api_serializer.UserSerializer
+    
+    def get_object(self):
+        email = self.kwargs['email']
+        user = User.objects.get(email=email)
